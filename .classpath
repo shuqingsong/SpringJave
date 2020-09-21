@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="F:/jar/driver/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="F:/jar/zxing/zxing.jar"/>
+	<classpathentry kind="lib" path="F:/jar/zxing/core.jar"/>
+	<classpathentry kind="lib" path="F:/jar/zxing/javase.jar" sourcepath="C:/Users/SQS199~1/AppData/Local/Temp/.org.sf.feeling.decompiler1554687089492/source/javase-3.0.0-sources.jar"/>
+	<classpathentry kind="lib" path="F:/jar/slf4j/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="F:/jar/commons-logging/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="F:/jar/json/fastjson-1.2.58.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-aop-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-aspects-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-beans-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-context-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-context-indexer-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-context-support-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-core-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-expression-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-instrument-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-jcl-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-jdbc-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-jms-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-messaging-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-orm-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-oxm-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-test-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-tx-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-web-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-webflux-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-webmvc-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/spring/spring-websocket-5.1.4.RELEASE.jar"/>
+	<classpathentry kind="lib" path="F:/jar/http/httpclient-4.3.4.jar"/>
+	<classpathentry kind="lib" path="F:/jar/http/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="F:/jar/http/httpmime-4.3.6.jar"/>
+	<classpathentry kind="lib" path="F:/jar/mail/mail-1.4.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
