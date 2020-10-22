@@ -124,8 +124,8 @@ public class MainApp {
 //		String[] baiduLatlng=mapsUtil.baiduGetLngAndLat("湖北省武汉市洪山区关山街道紫菘花园");
 		
 		//加解密/签名验签
-//		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
-//		String str="123abcABC我是中国人";
+		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
+		String str="123abcABC我是中国人";
 //		String encryptMD5=encryptUtil.encryptMD5_SHA(str,"MD5");
 //		String encryptSHA=encryptUtil.encryptMD5_SHA(str,"SHA");
 		
@@ -137,9 +137,9 @@ public class MainApp {
 //		String encryptAES=encryptUtil.encryptAES(str,secretKeyAES);
 //		String decryptAES=encryptUtil.decryptAES(encryptAES,secretKeyAES);
 		
-//		Map keyMap=encryptUtil.generateRSAKey(1024);
-//		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
-//		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
+		Map keyMap=encryptUtil.generateRSAKey(1024);
+		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
+		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
 		
 //		String signData=encryptUtil.signRSA(str,(String)keyMap.get("PrivateKey"));
 //		boolean verityResult=encryptUtil.verityRSA(str,(String)keyMap.get("PublicKey"),signData);
@@ -158,13 +158,13 @@ public class MainApp {
 //		boolean success=mailUtil.smtpSend(email1,email2, title, content, filePath);
 		
 		//OCR和人脸识别
-		OcrAndFaceUtil ocrAndFaceUtil = (OcrAndFaceUtil) context.getBean("ocrAndFaceUtil");
-		String image1="G:/zxingUtil/IdCard.jpg";
-		String image2="G:/zxingUtil/IdCardBack.jpg";
-		String image3="G:/zxingUtil/BankCard.jpg";
-		String image4="G:/zxingUtil/XCS.jpg";
-		String image5="G:/zxingUtil/XC.jpg";
-		Map sendMap=new HashMap();
+//		OcrAndFaceUtil ocrAndFaceUtil = (OcrAndFaceUtil) context.getBean("ocrAndFaceUtil");
+//		String image1="G:/zxingUtil/IdCard.jpg";
+//		String image2="G:/zxingUtil/IdCardBack.jpg";
+//		String image3="G:/zxingUtil/BankCard.jpg";
+//		String image4="G:/zxingUtil/XCS.jpg";
+//		String image5="G:/zxingUtil/XC.jpg";
+//		Map sendMap=new HashMap();
 //		sendMap.put("image_base64", Base64Util.GetImageStr(image1));
 //		String id_card_number=ocrAndFaceUtil.idCardOCR(sendMap);
 //		sendMap.put("image_base64", Base64Util.GetImageStr(image2));
@@ -173,19 +173,19 @@ public class MainApp {
 //		sendMap.put("image_base64", Base64Util.GetImageStr(image3));
 //		String number=ocrAndFaceUtil.bankCardOCR(sendMap);
 		
-		sendMap.put("image_base64", Base64Util.GetImageStr(image4));
-		String face_token=ocrAndFaceUtil.faceDetect(sendMap);
+//		sendMap.put("image_base64", Base64Util.GetImageStr(image4));
+//		String face_token=ocrAndFaceUtil.faceDetect(sendMap);
 		
 //		sendMap.put("image_base64_1", Base64Util.GetImageStr(image4));
 //		sendMap.put("image_base64_2", Base64Util.GetImageStr(image5));
 //		boolean success1=ocrAndFaceUtil.faceCompare(sendMap);
 		
-		sendMap.put("face_tokens", face_token);
-		String faceset_token=ocrAndFaceUtil.faceCreate(sendMap);
+//		sendMap.put("face_tokens", face_token);
+//		String faceset_token=ocrAndFaceUtil.faceCreate(sendMap);
 		
-		sendMap.put("image_base64", Base64Util.GetImageStr(image4));
-		sendMap.put("faceset_token", faceset_token);
-		boolean success2=ocrAndFaceUtil.faceSearch(sendMap);
+//		sendMap.put("image_base64", Base64Util.GetImageStr(image4));
+//		sendMap.put("faceset_token", faceset_token);
+//		boolean success2=ocrAndFaceUtil.faceSearch(sendMap);
 		
 	}
 
