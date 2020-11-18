@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="F:/jar/driver/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="F:/jar/driver/mysql-connector-java-5.1.39.jar"/>
 	<classpathentry kind="lib" path="F:/jar/zxing/zxing.jar"/>
 	<classpathentry kind="lib" path="F:/jar/zxing/core.jar"/>
 	<classpathentry kind="lib" path="F:/jar/zxing/javase.jar" sourcepath="C:/Users/SQS199~1/AppData/Local/Temp/.org.sf.feeling.decompiler1554687089492/source/javase-3.0.0-sources.jar"/>
@@ -34,6 +35,5 @@
 	<classpathentry kind="lib" path="F:/jar/http/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="F:/jar/http/httpmime-4.3.6.jar"/>
 	<classpathentry kind="lib" path="F:/jar/mail/mail-1.4.7.jar"/>
-	<classpathentry kind="lib" path="F:/jar/driver/mysql-connector-java-5.1.39.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

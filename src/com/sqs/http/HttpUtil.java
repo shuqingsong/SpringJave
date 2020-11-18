@@ -78,7 +78,7 @@ public class HttpUtil {
     
     public static CloseableHttpClient createHttpClient1() {
     	
-        RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.<ConnectionSocketFactory>create();
+        RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.create();
         ConnectionSocketFactory plainSF = new PlainConnectionSocketFactory();
         registryBuilder.register("http", plainSF);
         

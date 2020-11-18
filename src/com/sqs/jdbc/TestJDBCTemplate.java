@@ -14,8 +14,8 @@ public class TestJDBCTemplate implements TestDAO {
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
 	}
 	
-	public void create(String idno,String idtype,String name,String mobile,String state) {
-		String SQL = "insert into puser(userseq,idno,idtype,name,mobile,state) values(SEQ_PUSER.NEXTVAL,?,?,?,?,?)";     
+	public void create(String userseq,String idno,String idtype,String name,String mobile,String state) {
+		String SQL = "insert into puser(userseq,idno,idtype,name,mobile,state) values(?,?,?,?,?,?)";
 		jdbcTemplateObject.update( SQL, idno, idtype, name, mobile, state);
 		System.out.println("插入数据");
 		return;

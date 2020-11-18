@@ -55,7 +55,7 @@ public class MapsUtil {
         String url = String .format(aliyunApi1,aliyunKey,lng,lat);
         try {
         	URL myURL = new URL(url); 
-            URLConnection  httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+            URLConnection  httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8")); 
                 String line = "";
@@ -108,7 +108,7 @@ public class MapsUtil {
         String url = String .format(aliyunApi2,aliyunKey,address);
         try { 
         	URL myURL = new URL(url); 
-        	URLConnection httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+        	URLConnection httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8"));
                 String line = "";
@@ -157,7 +157,7 @@ public class MapsUtil {
         String url = String .format(tenxunApi1,tenxunKey,lat,lng);
         try {
         	URL myURL = new URL(url); 
-            URLConnection  httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+            URLConnection  httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8")); 
                 String line = "";
@@ -211,7 +211,7 @@ public class MapsUtil {
         String url = String .format(tenxunApi2,tenxunKey,address);
         try { 
         	URL myURL = new URL(url); 
-        	URLConnection httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+        	URLConnection httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8"));
                 String line = "";
@@ -260,7 +260,7 @@ public class MapsUtil {
         String url = String .format(baiduApi1,baiduKey,lat,lng);
         try {
         	URL myURL = new URL(url); 
-            URLConnection  httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+            URLConnection  httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8")); 
                 String line = "";
@@ -313,7 +313,7 @@ public class MapsUtil {
         String url = String .format(baiduApi2,baiduKey,address);
         try { 
         	URL myURL = new URL(url); 
-        	URLConnection httpsConn = (URLConnection) myURL.openConnection();// 不使用代理 
+        	URLConnection httpsConn = myURL.openConnection();// 不使用代理
             if (httpsConn != null) { 
             	BufferedReader br = new BufferedReader(new InputStreamReader( httpsConn.getInputStream(), "UTF-8"));
                 String line = "";

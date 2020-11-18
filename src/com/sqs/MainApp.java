@@ -58,19 +58,19 @@ public class MainApp {
 //		obj2.getAddressMap();
 	
 		//连接Oracle数据库
-//		TestJDBCTemplate testJDBCTemplate = (TestJDBCTemplate)context.getBean("testJDBCTemplate");
-//		testJDBCTemplate.create("421087199511286512", "P00", "舒庆松", "17683744166", "1");
-//		Puser puser=testJDBCTemplate.query("421087199511286512", "P00");
-//		System.out.println(puser.getUserseq()+" "+puser.getIdno()+" "+puser.getIdtype()+" "+puser.getName()+" "+puser.getMobile()+" "+puser.getState());
-//	    List pusers = testJDBCTemplate.queryList();
-//	    for (int i=0;i<pusers.size();i++) {
-//	    	Puser puser1=(Puser) pusers.get(i);
-//	    	System.out.println(puser1.getUserseq()+" "+puser1.getIdno()+" "+puser1.getIdtype()+" "+puser1.getName()+" "+puser1.getMobile()+" "+puser1.getState());
-//	     }
-//	    testJDBCTemplate.update("421087199511286512", "P00", "0");
-//		Puser puser2=testJDBCTemplate.query("421087199511286512", "P00");
-//		System.out.println(puser2.getUserseq()+" "+puser2.getIdno()+" "+puser2.getIdtype()+" "+puser2.getName()+" "+puser2.getMobile()+" "+puser2.getState());
-//	    testJDBCTemplate.delete("421087199511286512", "P00");
+		TestJDBCTemplate testJDBCTemplate = (TestJDBCTemplate)context.getBean("testJDBCTemplate");
+		testJDBCTemplate.create("1","421087199511286512", "P00", "舒庆松", "17683744166", "1");
+		Puser puser=testJDBCTemplate.query("421087199511286512", "P00");
+		System.out.println(puser.getUserseq()+" "+puser.getIdno()+" "+puser.getIdtype()+" "+puser.getName()+" "+puser.getMobile()+" "+puser.getState());
+	    List pusers = testJDBCTemplate.queryList();
+	    for (int i=0;i<pusers.size();i++) {
+	    	Puser puser1=(Puser) pusers.get(i);
+	    	System.out.println(puser1.getUserseq()+" "+puser1.getIdno()+" "+puser1.getIdtype()+" "+puser1.getName()+" "+puser1.getMobile()+" "+puser1.getState());
+	     }
+	    testJDBCTemplate.update("421087199511286512", "P00", "0");
+		Puser puser2=testJDBCTemplate.query("421087199511286512", "P00");
+		System.out.println(puser2.getUserseq()+" "+puser2.getIdno()+" "+puser2.getIdtype()+" "+puser2.getName()+" "+puser2.getMobile()+" "+puser2.getState());
+	    testJDBCTemplate.delete("421087199511286512", "P00");
 	    
 	    //条形码/二维码 生成与解析
 //		ZxingUtil zxingUtil = (ZxingUtil) context.getBean("zxingUtil");
@@ -124,8 +124,8 @@ public class MainApp {
 //		String[] baiduLatlng=mapsUtil.baiduGetLngAndLat("湖北省武汉市洪山区关山街道紫菘花园");
 		
 		//加解密/签名验签
-		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
-		String str="123abcABC我是中国人";
+//		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
+//		String str="123abcABC我是中国人";
 //		String encryptMD5=encryptUtil.encryptMD5_SHA(str,"MD5");
 //		String encryptSHA=encryptUtil.encryptMD5_SHA(str,"SHA");
 		
@@ -137,9 +137,9 @@ public class MainApp {
 //		String encryptAES=encryptUtil.encryptAES(str,secretKeyAES);
 //		String decryptAES=encryptUtil.decryptAES(encryptAES,secretKeyAES);
 		
-		Map keyMap=encryptUtil.generateRSAKey(1024);
-		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
-		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
+//		Map keyMap=encryptUtil.generateRSAKey(1024);
+//		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
+//		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
 		
 //		String signData=encryptUtil.signRSA(str,(String)keyMap.get("PrivateKey"));
 //		boolean verityResult=encryptUtil.verityRSA(str,(String)keyMap.get("PublicKey"),signData);
