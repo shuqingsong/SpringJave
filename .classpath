@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="F:/jar/http/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="F:/jar/http/httpmime-4.3.6.jar"/>
 	<classpathentry kind="lib" path="F:/jar/mail/mail-1.4.7.jar"/>
+	<classpathentry kind="lib" path="F:/jar/driver/mysql-connector-java-5.1.39.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
