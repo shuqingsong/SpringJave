@@ -1,18 +1,18 @@
 package com.sqs.jdbc;
 
-public class Puser {
+public class User {
 	
-	int userseq;
+	long userseq;
 	String idno;
 	String idtype;
 	String name;
 	String mobile;
 	String state;
 	
-	public int getUserseq() {
+	public long getUserseq() {
 		return userseq;
 	}
-	public void setUserseq(int userseq) {
+	public void setUserseq(long userseq) {
 		this.userseq = userseq;
 	}
 	public String getIdno() {

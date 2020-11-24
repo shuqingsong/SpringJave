@@ -7,9 +7,9 @@ public interface TestDAO {
 
 	void setDataSource(DataSource ds);
 	   
-	void create(String userseq, String idno, String idtype, String name, String mobile, String state);
+	void create(Long userseq, String idno, String idtype, String name, String mobile, String state);
 
-	Puser query(String idno, String idtype);
+	User query(String idno, String idtype);
 
 	List queryList();
 

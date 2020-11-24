@@ -1,39 +1,16 @@
 package com.sqs;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.content.StringBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
 
-import com.google.zxing.BarcodeFormat;
-import com.sqs.base64.Base64Util;
 import com.sqs.encrypt.EncryptUtil;
-import com.sqs.helloworld.HelloWorld;
-import com.sqs.helloworld.HelloWorld1;
-import com.sqs.jdbc.Puser;
+import com.sqs.jdbc.User;
 import com.sqs.jdbc.TestJDBCTemplate;
-import com.sqs.mail.MailUtil;
-import com.sqs.maps.MapsUtil;
-import com.sqs.ocrandface.OcrAndFaceUtil;
-import com.sqs.zxingcode.LogoConfig;
-import com.sqs.zxingcode.ZxingConfig;
-import com.sqs.zxingcode.ZxingUtil;
 
 public class MainApp {
 
@@ -58,19 +35,19 @@ public class MainApp {
 //		obj2.getAddressMap();
 	
 		//连接Oracle数据库
-		TestJDBCTemplate testJDBCTemplate = (TestJDBCTemplate)context.getBean("testJDBCTemplate");
-		testJDBCTemplate.create("1","421087199511286512", "P00", "舒庆松", "17683744166", "1");
-		Puser puser=testJDBCTemplate.query("421087199511286512", "P00");
-		System.out.println(puser.getUserseq()+" "+puser.getIdno()+" "+puser.getIdtype()+" "+puser.getName()+" "+puser.getMobile()+" "+puser.getState());
-	    List pusers = testJDBCTemplate.queryList();
-	    for (int i=0;i<pusers.size();i++) {
-	    	Puser puser1=(Puser) pusers.get(i);
-	    	System.out.println(puser1.getUserseq()+" "+puser1.getIdno()+" "+puser1.getIdtype()+" "+puser1.getName()+" "+puser1.getMobile()+" "+puser1.getState());
-	     }
-	    testJDBCTemplate.update("421087199511286512", "P00", "0");
-		Puser puser2=testJDBCTemplate.query("421087199511286512", "P00");
-		System.out.println(puser2.getUserseq()+" "+puser2.getIdno()+" "+puser2.getIdtype()+" "+puser2.getName()+" "+puser2.getMobile()+" "+puser2.getState());
-	    testJDBCTemplate.delete("421087199511286512", "P00");
+//		TestJDBCTemplate testJDBCTemplate = (TestJDBCTemplate)context.getBean("testJDBCTemplate");
+//		testJDBCTemplate.create((long) 1,"421087199511286512", "P00", "舒庆松", "17683744166", "1");
+//		User puser=testJDBCTemplate.query("421087199511286512", "P00");
+//		System.out.println(puser.getUserseq()+" "+puser.getIdno()+" "+puser.getIdtype()+" "+puser.getName()+" "+puser.getMobile()+" "+puser.getState());
+//	    List pusers = testJDBCTemplate.queryList();
+//	    for (int i=0;i<pusers.size();i++) {
+//	    	User puser1=(User) pusers.get(i);
+//	    	System.out.println(puser1.getUserseq()+" "+puser1.getIdno()+" "+puser1.getIdtype()+" "+puser1.getName()+" "+puser1.getMobile()+" "+puser1.getState());
+//	     }
+//	    testJDBCTemplate.update("421087199511286512", "P00", "0");
+//		User puser2=testJDBCTemplate.query("421087199511286512", "P00");
+//		System.out.println(puser2.getUserseq()+" "+puser2.getIdno()+" "+puser2.getIdtype()+" "+puser2.getName()+" "+puser2.getMobile()+" "+puser2.getState());
+//	    testJDBCTemplate.delete("421087199511286512", "P00");
 	    
 	    //条形码/二维码 生成与解析
 //		ZxingUtil zxingUtil = (ZxingUtil) context.getBean("zxingUtil");
@@ -124,25 +101,25 @@ public class MainApp {
 //		String[] baiduLatlng=mapsUtil.baiduGetLngAndLat("湖北省武汉市洪山区关山街道紫菘花园");
 		
 		//加解密/签名验签
-//		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
-//		String str="123abcABC我是中国人";
-//		String encryptMD5=encryptUtil.encryptMD5_SHA(str,"MD5");
-//		String encryptSHA=encryptUtil.encryptMD5_SHA(str,"SHA");
+		EncryptUtil encryptUtil = (EncryptUtil) context.getBean("encryptUtil");
+		String str="123abcABC我是中国人";
+		String encryptMD5=encryptUtil.encryptMD5_SHA(str,"MD5");
+		String encryptSHA=encryptUtil.encryptMD5_SHA(str,"SHA");
 		
-//		String secretKey3DES=encryptUtil.generate3DESKey(168);
-//		String encrypt3DES=encryptUtil.encrypt3DES(str,secretKey3DES);
-//		String decrypt3DES=encryptUtil.decrypt3DES(encrypt3DES,secretKey3DES);
+		String secretKey3DES=encryptUtil.generate3DESKey(168);
+		String encrypt3DES=encryptUtil.encrypt3DES(str,secretKey3DES);
+		String decrypt3DES=encryptUtil.decrypt3DES(encrypt3DES,secretKey3DES);
 		
-//		String secretKeyAES=encryptUtil.generateAESKey(128);
-//		String encryptAES=encryptUtil.encryptAES(str,secretKeyAES);
-//		String decryptAES=encryptUtil.decryptAES(encryptAES,secretKeyAES);
+		String secretKeyAES=encryptUtil.generateAESKey(128);
+		String encryptAES=encryptUtil.encryptAES(str,secretKeyAES);
+		String decryptAES=encryptUtil.decryptAES(encryptAES,secretKeyAES);
 		
-//		Map keyMap=encryptUtil.generateRSAKey(1024);
-//		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
-//		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
+		Map keyMap=encryptUtil.generateRSAKey(1024);
+		String encryptRSA=encryptUtil.encryptRSA(str,(String)keyMap.get("PublicKey"));
+		String decryptRSA=encryptUtil.decryptRSA(encryptRSA,(String)keyMap.get("PrivateKey"));
 		
-//		String signData=encryptUtil.signRSA(str,(String)keyMap.get("PrivateKey"));
-//		boolean verityResult=encryptUtil.verityRSA(str,(String)keyMap.get("PublicKey"),signData);
+		String signData=encryptUtil.signRSA(str,(String)keyMap.get("PrivateKey"));
+		boolean verityResult=encryptUtil.verityRSA(str,(String)keyMap.get("PublicKey"),signData);
 		
 		//电子邮箱
 //		MailUtil mailUtil = (MailUtil) context.getBean("mailUtil");
