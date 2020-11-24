@@ -42,7 +42,7 @@ public class MainApp {
 	public static void main(String[] args) throws Exception {
 
 		//Spring 的 BeanFactory 容器
-		//XmlBeanFactory factory = new XmlBeanFactory(new ClassPathResource("Beans.xml"));
+//		XmlBeanFactory factory = new XmlBeanFactory(new ClassPathResource("Beans.xml"));
 		//Spring ApplicationContext 容器
 		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
 		
@@ -188,5 +188,4 @@ public class MainApp {
 //		boolean success2=ocrAndFaceUtil.faceSearch(sendMap);
 		
 	}
-
 }
