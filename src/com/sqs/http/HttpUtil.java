@@ -33,32 +33,6 @@ import java.security.cert.X509Certificate;
 public class HttpUtil {
 	
 	final static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
-	
-    public static String downloadFile(String src_file, String dest_file) throws Throwable {
-    	
-        try (CloseableHttpClient httpclient = createHttpClient()) {
-            HttpGet httpget = new HttpGet(src_file);
-            httpget.setConfig(RequestConfig.custom()
-                    .setConnectionRequestTimeout(5000) //
-                    .setConnectTimeout(15000) //
-                    .setSocketTimeout(15000) //
-                    .build());
-            try (CloseableHttpResponse response = httpclient.execute(httpget)) {
-                org.apache.http.HttpEntity entity = response.getEntity();
-                File desc = new File(dest_file);
-                File folder = desc.getParentFile();
-                folder.mkdirs();
-                try (InputStream is = entity.getContent(); //
-                     OutputStream os = new FileOutputStream(desc)) {
-                    StreamUtils.copy(is, os);
-                }
-            }catch(Throwable e){
-            	logger.error(e.getMessage());
-                throw new Throwable("文件下载失败......", e);
-            }
-        }
-        return dest_file;
-    }
 
     public static CloseableHttpClient createHttpClient() {
 
@@ -104,5 +78,31 @@ public class HttpUtil {
                 .build();
         
         return httpclient;
+    }
+
+    public static String downloadFile(String src_file, String dest_file) throws Throwable {
+
+        try (CloseableHttpClient httpclient = createHttpClient()) {
+            HttpGet httpget = new HttpGet(src_file);
+            httpget.setConfig(RequestConfig.custom()
+                    .setConnectionRequestTimeout(5000) //
+                    .setConnectTimeout(15000) //
+                    .setSocketTimeout(15000) //
+                    .build());
+            try (CloseableHttpResponse response = httpclient.execute(httpget)) {
+                org.apache.http.HttpEntity entity = response.getEntity();
+                File desc = new File(dest_file);
+                File folder = desc.getParentFile();
+                folder.mkdirs();
+                try (InputStream is = entity.getContent(); //
+                     OutputStream os = new FileOutputStream(desc)) {
+                    StreamUtils.copy(is, os);
+                }
+            }catch(Throwable e){
+                logger.error(e.getMessage());
+                throw new Throwable("文件下载失败......", e);
+            }
+        }
+        return dest_file;
     }
 }
