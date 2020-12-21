@@ -12,8 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.sqs.encrypt.EncryptUtil;
-//import com.sqs.jdbc.User;
-//import com.sqs.jdbc.TestJDBCTemplate;
+import com.sqs.jdbc.User;
+import com.sqs.jdbc.TestJDBCTemplate;
 
 public class MainApp {
 
