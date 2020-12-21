@@ -20,23 +20,7 @@ public class MainApp {
 	final Logger logger = LoggerFactory.getLogger(MainApp.class);
 	
 	public static void main(String[] args) throws Exception {
-
-		Scanner scanner=new Scanner(System.in);
-		int a[] = new int [8];
-		for (int i = 0; i < 8; i++) {
-			a[i]=scanner.nextInt();
-		}
-		//补充0
-		ArrayList<Integer> list=new ArrayList<>();
-		for (int i : a) {
-			if(i!=0) {
-				list.add(i);
-			}
-		}
-		int result[] = new int [8];
-		for(int i = 0; i < result.length; i++){
-			System.out.print(a[i]+",");
-		}
+		test();
 	}
 
 	public static void test(){
