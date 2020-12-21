@@ -1,6 +1,7 @@
 package com.sqs.http;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -18,6 +19,8 @@ import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -26,12 +29,18 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.net.*;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
 import java.security.KeyStore;
+import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -65,8 +74,7 @@ public class HttpUtil {
 
         return httpclient;
     }
-    
-    public static CloseableHttpClient createHttpClient1() throws Exception{
+    public static CloseableHttpClient createHttpClient1() throws Exception {
     	
         RegistryBuilder<ConnectionSocketFactory> registryBuilder = RegistryBuilder.create();
         ConnectionSocketFactory plainSF = new PlainConnectionSocketFactory();
@@ -96,13 +104,12 @@ public class HttpUtil {
         
         return httpclient;
     }
-
     /**
      * 创建HttpClient对象 Get请求 访问Url
      * @param url param
      * @return
      */
-    public String doGetMap(String url, Map<String, String> param) throws Exception{
+    public String httpClientGet(String url, Map<String, String> param) throws Exception {
 
         String resultString = "";
         CloseableHttpClient httpClient = null;
@@ -112,14 +119,30 @@ public class HttpUtil {
             logger.info("请求报文："+json);
 
             httpClient = createHttpClient();// 创建Httpclient对象
-            // 创建URI
+            // 创建URI 方式一
             URIBuilder builder = new URIBuilder(url);
-            if (null != param && !"".equals(param)) {
-                for (String key : param.keySet()) {
-                    builder.addParameter(key, param.get(key));
+            if (null != param && !param.isEmpty()) {
+                for (Map.Entry<String, String> entry : param.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    builder.addParameter(key, value);
                 }
             }
             URI uri = builder.build();
+
+            // 创建URI 方式二
+//            StringBuilder paramBody = new StringBuilder();
+//            if (null != param && !param.isEmpty()) {
+//                for (Map.Entry<String, String> entry : param.entrySet()) {
+//                    String key = entry.getKey();
+//                    String value = entry.getValue();
+//                    paramBody.append(key).append("=").append(URLEncoder.encode(value, "utf-8")).append("&");
+//                }
+//                paramBody.deleteCharAt(postBody.length() - 1);
+//                url=url+"?"+paramBody.toString();
+//            }
+//            URI uri = new URI(url);
+
             HttpGet httpGet = new HttpGet(uri);// 创建Http Get请求
             httpGet.setConfig(RequestConfig.custom()
                     .setConnectionRequestTimeout(connectionRequestTimeout)
@@ -151,7 +174,7 @@ public class HttpUtil {
      * @param url param
      * @return
      */
-    public  String doPostMap(String url, Map<String, String> param) throws Exception {
+    public  String httpClientPost(String url, Map<String, String> param) throws Exception {
 
         String resultString = "";
         CloseableHttpClient httpClient = null;
@@ -167,14 +190,27 @@ public class HttpUtil {
                     .setConnectTimeout(connectTimeout)
                     .setSocketTimeout(socketTimeout)
                     .build());
-            // 创建请求内容
-            if (null != param && !"".equals(param)) {
+            // 组织请求内容
+            if (null != param && !param.isEmpty()) {
+                //方式一
                 List<NameValuePair> paramList = new ArrayList<>();
-                for (String key : param.keySet()) {
-                    paramList.add(new BasicNameValuePair(key, param.get(key)));
+                for (Map.Entry<String, String> entry : param.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    paramList.add(new BasicNameValuePair(key, value));
                 }
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(paramList);// 模拟表单
                 httpPost.setEntity(entity);
+
+                //方式二
+//                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+//                for (Map.Entry<String, String> entry : param.entrySet()) {
+//                    String key = entry.getKey();
+//                    String value = entry.getValue();
+//                    builder.addPart(key,new StringBody(value,ContentType.MULTIPART_FORM_DATA));
+//                }
+//                HttpEntity entity = builder.build();
+//                httpPost.setEntity(entity);
             }
 
             response = httpClient.execute(httpPost);// 执行http请求
@@ -201,7 +237,7 @@ public class HttpUtil {
      * @param url json
      * @return
      */
-    public String doPostJson(String url, String json) throws Exception{
+    public String httpClientPostJson(String url, String json) throws Exception {
 
         String resultString = "";
         CloseableHttpClient httpClient = null;
@@ -216,8 +252,8 @@ public class HttpUtil {
                     .setConnectTimeout(connectTimeout)
                     .setSocketTimeout(socketTimeout)
                     .build());
-            // 创建请求内容
-            if (null != json && !"".equals(json)) {
+            // 组织请求内容
+            if (null != json && !json.isEmpty()) {
                 StringEntity entity = new StringEntity(json, ContentType.APPLICATION_JSON);
                 httpPost.setEntity(entity);
             }
@@ -241,12 +277,69 @@ public class HttpUtil {
         }
         return resultString;
     }
+
+
     /**
-     * 创建URL对象 Post请求 访问Url
-     * @param apiUrl param
+     * 默认的TrustManager实现，不安全
+     */
+    public static class DefaultTrustManager implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+    }
+    public static HttpURLConnection createHttpURLConnection(String uri) throws Exception {
+
+        URL url = new URL(uri);// 创建URL对象
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();// 打开HttpURLConnection连接
+        return conn;
+    }
+    public static HttpsURLConnection createHttpsURLConnection1(String uri, KeyStore keyStore, String keyStorePassword, KeyStore trustStore) throws Exception {
+
+        KeyManager[] keyManagers = null;
+        TrustManager[] trustManagers = null;
+        if (keyStore != null) {
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
+            keyManagerFactory.init(keyStore, keyStorePassword.toCharArray());
+            keyManagers = keyManagerFactory.getKeyManagers();
+        }
+        if (trustStore != null) {
+            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
+            trustManagerFactory.init(trustStore);
+            trustManagers = trustManagerFactory.getTrustManagers();
+        } else {
+            trustManagers = new TrustManager[] { new DefaultTrustManager()};
+        }
+
+        //创建SSLContext对象 并使用我们指定的信任管理器初始化
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");//参数为协议
+        sslContext.init(null, trustManagers, new SecureRandom());
+
+        URL url = new URL(uri);// 创建URL对象
+        HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();// 打开HttpsURLConnection连接
+        conn.setSSLSocketFactory(sslContext.getSocketFactory());//设置其SSLSocketFactory对象
+        //验证URL的主机名和服务器的标识主机名是否匹配
+        conn.setHostnameVerifier(new HostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                System.out.println("WARNING: Hostname is not matched for cert.");
+                return true;
+            }
+        });
+        return conn;
+    }
+    /**
+     * 创建URL对象 Get请求 访问Url param中中文参数需URLEncoder.encode(value.toString(), "utf-8")编码
+     * @param url param
      * @return
      */
-    public String doPostMap1(String apiUrl,Map<String, String> param) throws Exception{
+    public String urlConnectionGet(String url,Map<String, String> param) throws Exception {
 
         String resultString = "";
         DataOutputStream out = null;
@@ -255,19 +348,83 @@ public class HttpUtil {
             String json=JSON.toJSONString(param);
             logger.info("请求报文："+json);
 
-            // 组织请求参数
-            StringBuilder postBody = new StringBuilder();
-            for (Map.Entry<String, String> entry : param.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
-                postBody.append(key).append("=").append(URLEncoder.encode(value.toString(), "utf-8")).append("&");
+            // 组织请求内容
+            StringBuilder paramBody = new StringBuilder();
+            if (null != param && !param.isEmpty()) {
+                for (Map.Entry<String, String> entry : param.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    paramBody.append(key).append("=").append(URLEncoder.encode(value, "utf-8")).append("&");
+                }
+                paramBody.deleteCharAt(paramBody.length() - 1);
+                url=url+"?"+paramBody.toString();
             }
-            if (null != param && !"".equals(param)) {
+
+            HttpURLConnection conn = createHttpURLConnection(url);// 打开HttpURLConnection连接
+            conn.setConnectTimeout(connectTimeout);
+            conn.setReadTimeout(readTimeout);
+            conn.setRequestMethod("GET");// 设置请求方式 GET POST
+            conn.setDoInput(true);// 设置是否从conn读数据
+            conn.setUseCaches(false);// 设置是否使用缓存
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {// 判断返回状态是否为200
+                in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+                StringBuilder result = new StringBuilder();
+                String line;
+                while ((line = in.readLine()) != null) {
+                    result.append(line).append("\n");
+                }
+                logger.info("返回报文："+result.toString());
+                resultString=result.toString();
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            throw e;
+        } finally {
+            if(null != in){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    logger.error("输入流关闭异常"+e);
+                }
+            }
+            if(null != out){
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    logger.error("输出流关闭异常"+e);
+                }
+            }
+        }
+        return resultString;
+    }
+    /**
+     * 创建URL对象 Post请求 访问Url param中中文参数需URLEncoder.encode(value.toString(), "utf-8")编码
+     * @param url param
+     * @return
+     */
+    public String urlConnectionPost(String url,Map<String, String> param) throws Exception {
+
+        String resultString = "";
+        DataOutputStream out = null;
+        BufferedReader in = null;
+        try {
+            String json=JSON.toJSONString(param);
+            logger.info("请求报文："+json);
+
+            // 组织请求内容
+            StringBuilder postBody = new StringBuilder();
+            if (null != param && !param.isEmpty()) {
+                for (Map.Entry<String, String> entry : param.entrySet()) {
+                    String key = entry.getKey();
+                    String value = entry.getValue();
+                    postBody.append(key).append("=").append(URLEncoder.encode(value, "utf-8")).append("&");
+                }
                 postBody.deleteCharAt(postBody.length() - 1);
             }
 
-            URL url = new URL(apiUrl);// 创建URL对象
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();// 打开HttpURLConnection连接
+            HttpURLConnection conn = createHttpURLConnection(url);// 打开HttpURLConnection连接
             conn.setConnectTimeout(connectTimeout);
             conn.setReadTimeout(readTimeout);
             conn.setRequestMethod("POST");// 设置请求方式 GET POST
@@ -311,11 +468,11 @@ public class HttpUtil {
         return resultString;
     }
     /**
-     * 创建URL对象 Post请求 访问Url
-     * @param apiUrl sendJson
+     * 创建URL对象 Post请求 访问Url sendJson中中文参数需URLEncoder.encode(value.toString(), "utf-8")编码
+     * @param url sendJson
      * @return
      */
-    public String doPostJson1(String apiUrl,String sendJson) throws Exception{
+    public String urlConnectionPostJson(String url,String sendJson) throws Exception {
 
         String resultString = "";
         DataOutputStream out = null;
@@ -323,8 +480,7 @@ public class HttpUtil {
         try {
             logger.info("请求报文："+sendJson);
 
-            URL url = new URL(apiUrl);// 创建URL对象
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();// 打开HttpURLConnection连接
+            HttpURLConnection conn = createHttpURLConnection(url);// 打开HttpURLConnection连接
             conn.setConnectTimeout(connectTimeout);
             conn.setReadTimeout(readTimeout);
             conn.setRequestMethod("POST");// 设置请求方式 GET POST
