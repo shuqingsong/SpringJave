@@ -8,7 +8,7 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
        <property name="location" value="classpath:peconfig.properties" />
     </bean>
-    
+
    <bean id="helloWorld" class="com.sqs.helloworld.HelloWorld">
       <property name="message" value="Hello World!"/>
    </bean>
@@ -100,5 +100,5 @@
    <!-- http-->
    <bean id="httpUtil" class="com.sqs.http.HttpUtil">
    </bean>
-   
+
 </beans>
