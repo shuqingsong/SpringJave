@@ -30,13 +30,7 @@ public class MainApp {
 		//XmlBeanFactory factory = new XmlBeanFactory(new ClassPathResource("Beans.xml"));
 		//Spring ApplicationContext 容器(方式一)
 		//ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
-		testIOC1();
-	}
-
-	public void testIOC1(){
-		HelloWorld obj = new HelloWorld();
-		obj.setMessage("Hello World!");
-		obj.getMessage();
+		testHelloWorld();
 	}
 
 	public void testHelloWorld(){
