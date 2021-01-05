@@ -1,4 +1,4 @@
-package com.sqs.test;
+package com.sqs;
 
 import java.util.*;
 
